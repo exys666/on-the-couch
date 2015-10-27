@@ -1,0 +1,17 @@
+{
+  "name": "on-the-couch",
+  "version": "0.0.1",
+  "description": "CouchDB client with Promises",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "couch",
+    "couchdb",
+    "database",
+    "promises"
+  ],
+  "author": "Bartosz Niziolek <exys666@gmail.com>",
+  "license": "MIT"
+}
