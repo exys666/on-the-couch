@@ -1,61 +1,26 @@
 'use strict';
 
-var http = require('http');
-var Promise = require('bluebird');
-var err = require('./error');
+let http = require('./http');
+let error = require('./error');
 
-var call = function (config, expectedCodes, data) {
-    return new Promise(function (resolve, reject) {
-        var req = http.request(config, function (res) {
-            res.setEncoding('utf8');
+let parse = function (params) {
+    let type = typeof params;
+    if (type === 'string') return { id: params };
 
-            var data = '';
-
-            res.on('data', function (chunk) {
-                data += chunk;
-            });
-
-            res.on('end', function () {
-                if (expectedCodes.indexOf(res.statusCode) >= 0 ) resolve(JSON.parse(data));
-                else reject(err.parse(res, data));
-            });
-        });
-
-        if (data) req.write(JSON.stringify(data));
-
-        req.end();
-    });
+    return params;
 }
 
-
-module.exports = function (db) {
+module.exports = function (config) {
+    let call = http(config);
 
     return {
 
-        get: function (id, opts) {
-            return call({
-                method: 'GET',
-                port: db.port,
-                host: db.host,
-                path: '/brewlab/' + id
-            }, [200]);
-        },
-
-        put: function (id, rev, doc) {
-            var headers = {
-                'Content-Type': 'application/json'
-            };
-
-            if (rev) headers['If-Match'] = rev;
-
-            return call({
-                method: 'PUT',
-                port: db.port,
-                host: db.host,
-                path: '/brewlab/' + id,
-                headers: headers
-            }, [201, 202], doc);
+        get: function (params) {
+            params = parse(params);
+            return call('GET', '/' + params.id, params).then(function (response) {
+                if (response.statusCode === 200) return response.body;
+                throw error.parse(response);
+            });
         }
-
     };
 };

@@ -9,6 +9,11 @@ var error = function (name) {
     return e;
 };
 
+var UnknownError = function (response) {
+    console.log(response);
+};
+UnknownError.prototype = Object.create(Error.prototype);
+
 var errors =  {
     400: error('BadRequest'),
     404: error('NotFound'),
@@ -22,8 +27,9 @@ for (var code in errors) {
     err[e.name] = e;
 }
 
-err.parse = function (res, data) {
-    return new errors[res.statusCode];
+err.parse = function (res) {
+    let error = errors[res.statusCode];
+    return error ? new error : new UnknownError(res);
 }
 
 module.exports = err;

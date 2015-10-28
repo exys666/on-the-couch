@@ -1,6 +1,6 @@
 'use strict';
 
-let config = require('./config');
+let prepareConfig = require('./config');
 var doc = require('./doc');
 var err = require('./error');
 
@@ -13,8 +13,9 @@ const DEFAULT_CONFIG = {
 
 module.exports = function (customConfig) {
 
+    let config = prepareConfig(customConfig);
     return {
-        config: config(customConfig),
+        config: config,
         doc: doc(config),
         err: err
     };

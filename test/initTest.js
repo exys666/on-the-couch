@@ -1,7 +1,7 @@
 'use strict';
 
 var expect = require('chai').expect;
-var onTheCouch = require('../src');
+var onTheCouch = require('../');
 
 describe('db', function () {
 
