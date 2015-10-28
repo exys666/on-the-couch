@@ -16,6 +16,7 @@ UnknownError.prototype = Object.create(Error.prototype);
 
 var errors =  {
     400: error('BadRequest'),
+    401: error('Unauthorized'),
     404: error('NotFound'),
     409: error('Conflict')
 }

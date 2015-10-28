@@ -67,4 +67,50 @@ describe('db.doc', function () {
 
     });
 
+    describe('put()', function () {
+
+        it('should put document with id when 201 response', function () {
+            // given
+            let doc = {
+                val: 'val'
+            };
+
+            let res = {
+                id: 'test',
+                rev: '1-abc',
+                ok: true
+            };
+
+            http.put('/db/test', doc).reply(201, res);
+
+            // when
+            let promise = db.doc.put('test', doc);
+
+            // then
+            return expect(promise).to.eventually.eql(res);
+        });
+
+        it('should put document with id when 202 response', function () {
+            // given
+            let doc = {
+                val: 'val'
+            };
+
+            let res = {
+                id: 'test',
+                rev: '1-abc',
+                ok: true
+            };
+
+            http.put('/db/test', doc).reply(202, res);
+
+            // when
+            let promise = db.doc.put('test', doc);
+
+            // then
+            return expect(promise).to.eventually.eql(res);
+        });
+
+    });
+
 });
