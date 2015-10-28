@@ -41,7 +41,7 @@ describe('db.doc', function () {
             };
 
             http.get('/db/test')
-                .matchHeader('If-Match', '1-abc')
+                .query({rev: '1-abc'})
                 .reply(200, doc);
 
             // when

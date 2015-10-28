@@ -22,21 +22,21 @@ let parseResponse = function (resolve) {
 
 module.exports = function (config) {
 
-    let preparePath = function (path) {
-        return '/' + config.db + path;
+    let preparePath = function (path, query) {
+        return '/' + config.db + path
+        + (Object.keys(query).length ? '?' + querystring.stringify(query) : '');
     };
 
     let request = function (method, path, params) {
-        let headers = {};
-        if (params.rev) headers['If-Match'] = params.rev;
+        let query = {};
+        if (params.rev) query.rev = params.rev;
 
         let r = {
             method: method,
             protocol: config.protocol,
             host: config.host,
             port: config.port,
-            path: preparePath(path),
-            headers: headers
+            path: preparePath(path, query)
         }
 
         return r;
