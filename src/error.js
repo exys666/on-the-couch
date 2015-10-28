@@ -1,25 +1,29 @@
 'use strict';
 
-var codes =  {
-    400: 'BadRequest',
-    404: 'NotFound'
+var error = function (name) {
+    var e = function () {};
+    Object.defineProperty(e, 'name', {
+        value: name
+    });
+    e.prototype = Object.create(Error.prototype);
+    return e;
+};
+
+var errors =  {
+    400: error('BadRequest'),
+    404: error('NotFound'),
+    409: error('Conflict')
 }
 
-var err = {};
+var err = {}
 
-for (var code in codes) {
-    var name = codes[code];
-
-    var error = function () {};
-    error.prototype = Object.create(Error.prototype);
-
-    err[name] = error;
+for (var code in errors) {
+    var e = errors[code];
+    err[e.name] = e;
 }
 
 err.parse = function (res, data) {
-    console.log(res.statusCode, data);
-    var name = codes[res.statusCode];
-    return new err[name];
+    return new errors[res.statusCode];
 }
 
 module.exports = err;
