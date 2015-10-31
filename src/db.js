@@ -9,7 +9,7 @@ const DEFAULT_CONFIG = {
     host: 'localhost',
     port: 5984,
     db: 'database'
-}
+};
 
 module.exports = function (customConfig) {
 

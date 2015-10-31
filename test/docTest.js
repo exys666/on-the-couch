@@ -1,6 +1,6 @@
 'use strict';
 
-let nock = require('nock')
+let nock = require('nock');
 let chai = require('chai');
 let chaiAsPromised = require('chai-as-promised');
 let expect = require('chai').expect;

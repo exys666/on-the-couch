@@ -19,9 +19,9 @@ var errors =  {
     401: error('Unauthorized'),
     404: error('NotFound'),
     409: error('Conflict')
-}
+};
 
-var err = {}
+var err = {};
 
 for (var code in errors) {
     var e = errors[code];
@@ -31,6 +31,6 @@ for (var code in errors) {
 err.parse = function (res) {
     let error = errors[res.statusCode];
     return error ? new error : new UnknownError(res);
-}
+};
 
 module.exports = err;
