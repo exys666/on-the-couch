@@ -2,6 +2,10 @@
   "name": "on-the-couch",
   "version": "0.0.1",
   "description": "CouchDB client with Promises",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/exys666/on-the-couch.git"
+  },
   "main": "index.js",
   "scripts": {
     "test": "mocha"
