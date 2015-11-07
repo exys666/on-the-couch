@@ -1,6 +1,6 @@
 {
   "name": "on-the-couch",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "CouchDB client with Promises",
   "repository": {
     "type": "git",

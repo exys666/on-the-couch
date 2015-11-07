@@ -14,7 +14,7 @@ let parse = function (args) {
     if (doc) params.doc = doc;
 
     return params;
-}
+};
 
 module.exports = function (config) {
     let call = http(config);
@@ -32,6 +32,13 @@ module.exports = function (config) {
         put: function () {
             let params = parse(arguments);
             return call('PUT', '/' + params.id, params, params.doc).then(function (response) {
+                if(response.statusCode === 201 || response.statusCode === 202) return response.body;
+                throw error.parse(response);
+            });
+        },
+
+        post: function (doc) {
+            return call('POST', '', {doc: doc}).then(function (response) {
                 if(response.statusCode === 201 || response.statusCode === 202) return response.body;
                 throw error.parse(response);
             });
