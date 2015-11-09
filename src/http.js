@@ -36,7 +36,10 @@ module.exports = function (config) {
             protocol: config.protocol,
             host: config.host,
             port: config.port,
-            path: preparePath(path, query)
+            path: preparePath(path, query),
+            headers: {
+                'Content-Type': 'application/json'
+            }
         }
 
         return r;
